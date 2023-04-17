@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import {Accordion} from "./components/Accordion";
 import {PageTitle} from "./components/PageTitle";
 import {Rating} from "./components/Rating";
+import {Accordion} from "./components/Accordion";
 
 function App() {
     return (
