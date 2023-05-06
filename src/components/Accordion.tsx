@@ -8,7 +8,7 @@ type AccordionPropsType = {
 export function Accordion(props: AccordionPropsType) {
     return <div>
         <SmallAccordion value={props.titleValue}/>
-        <SmallestAccordion collapsed={props.collapsed}/>
+        { props.collapsed && <SmallestAccordion collapsed={props.collapsed}/>}
     </div>
 }
 
