@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import { WishList } from './WishList';
+
 export type WishesType = {
   id: number;
   title: string;
@@ -10,7 +11,7 @@ export type WishesType = {
   checked: boolean;
 };
 function App() {
-  const [wishes, setWishes] = useState<any>([
+  const [wishes, setWishes] = useState<Array<WishesType>>([
     {
       id: 1,
       title: 'Iphone 13 PRO MAX',
