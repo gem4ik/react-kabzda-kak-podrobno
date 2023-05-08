@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import './App.css';
 import { WishList } from './WishList';
 
@@ -10,6 +10,9 @@ export type WishesType = {
   category: string;
   checked: boolean;
 };
+
+export type OsFilterType = 'All' | 'IOS' | 'Android' | '-';
+
 function App() {
   const [wishes, setWishes] = useState<Array<WishesType>>([
     {
@@ -18,7 +21,7 @@ function App() {
       os: 'IOS',
       price: 1200,
       category: 'phones',
-      checked: false,
+      checked: true,
     },
     {
       id: 2,
@@ -69,9 +72,29 @@ function App() {
       checked: false,
     },
   ]);
+  const [filter, setFilter] = useState<OsFilterType>('All');
+
+  const SetterForFilter = (value: OsFilterType) => {
+    setFilter(value);
+  };
+
+  let wishesToShow = wishes;
+  if (filter === 'All') {
+    return wishes;
+  }
+  if (filter === 'IOS') {
+    wishesToShow = wishes.filter((f) => f.os === 'IOS');
+  }
+  if (filter === 'Android') {
+    wishesToShow = wishes.filter((f) => f.os === 'Android');
+  }
+  if (filter === '-') {
+    wishesToShow = wishes.filter((f) => f.os === '-');
+  }
+
   return (
     <div>
-      <WishList wishes={wishes} />
+      <WishList wishes={wishes} SetterForFilter={SetterForFilter} />
     </div>
   );
 }
