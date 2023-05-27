@@ -2,17 +2,30 @@ import React, {useState} from 'react';
 import './App.css';
 import {Rating} from "./components/Rating";
 import {Accordion} from "./components/Accordion";
+import {OnOff} from "./components/OnOff";
 
 function App() {
+
     const [collapsedValue, setCollapsedValue] = useState<boolean>(false)
     const [collapsedSecondValue, setCollapsedSecondValue] = useState<boolean>(false)
-
     const setCollapsedHandler= () => {
         setCollapsedValue(!collapsedValue)
     }
     const setCollapsedSecondHandler =()=> {
         setCollapsedSecondValue(!collapsedSecondValue)
     }
+
+    const [squareOnOff, setSquareOnOff] = useState(false)
+    const [roundOnOff, setRoundOnOff] = useState(false)
+    const setSquareChecker= () => {
+        setSquareOnOff(!squareOnOff)
+    }
+    const setRoundChecker= () => {
+        setRoundOnOff(!roundOnOff)
+    }
+
+    const [selected, setSelected] = useState(false)
+    console.log(selected)
 
     return (
         <div>
@@ -25,11 +38,17 @@ function App() {
                 setCollapsedHandler={setCollapsedSecondHandler}
             />
             <hr/>
-            <Rating value={1}/>
-            <Rating value={2}/>
-            <Rating value={3}/>
-            <Rating value={4}/>
-            <Rating value={5}/>
+            <OnOff
+                squareOnOff={squareOnOff}
+                roundOnOff={roundOnOff}
+                setSquareChecker={setSquareChecker}
+                setRoundChecker={setRoundChecker}
+            />
+            <hr/>
+            <Rating
+                setSelected={setSelected}
+                selected={selected}
+            />
         </div>
     );
 }
