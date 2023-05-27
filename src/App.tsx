@@ -1,21 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import {PageTitle} from "./components/PageTitle";
 import {Rating} from "./components/Rating";
 import {Accordion} from "./components/Accordion";
 
 function App() {
+    const [collapsedValue, setCollapsedValue] = useState<boolean>(false)
+    const [collapsedSecondValue, setCollapsedSecondValue] = useState<boolean>(false)
+
+    const setCollapsedHandler= () => {
+        setCollapsedValue(!collapsedValue)
+    }
+    const setCollapsedSecondHandler =()=> {
+        setCollapsedSecondValue(!collapsedSecondValue)
+    }
+
     return (
         <div>
-            {/*<PageTitle value={"I'm the Page"}/>*/}
-            {/*<PageTitle value={"two"}/>*/}
-            <Accordion titleValue={"three"} collapsed={false}/>
-            <Accordion titleValue={"two"} collapsed={true}/>
-            {/*<Rating value={1}/>*/}
-            {/*<Rating value={2}/>*/}
-            {/*<Rating value={3}/>*/}
-            {/*<Rating value={4}/>*/}
-            {/*<Rating value={5}/>*/}
+            <Accordion
+                collapsed={collapsedValue}
+                setCollapsedHandler={setCollapsedHandler}
+            />
+            <Accordion
+                collapsed={collapsedSecondValue}
+                setCollapsedHandler={setCollapsedSecondHandler}
+            />
+            <hr/>
+            <Rating value={1}/>
+            <Rating value={2}/>
+            <Rating value={3}/>
+            <Rating value={4}/>
+            <Rating value={5}/>
         </div>
     );
 }

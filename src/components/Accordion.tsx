@@ -1,36 +1,29 @@
-import React from "react";
+import React, {FC} from "react";
 
-type AccordionPropsType = {
-    titleValue: string
+export type AccordionPropsType = {
     collapsed: boolean
+    setCollapsedHandler:()=> void
 }
-
-export function Accordion(props: AccordionPropsType) {
-    return <div>
-        <SmallAccordion value={props.titleValue}/>
-        { props.collapsed && <SmallestAccordion collapsed={props.collapsed}/>}
-    </div>
-}
-
-type smallPropsType={
-    value: string
-}
-function SmallAccordion(props: smallPropsType) {
-    return (props.value === "three")? <h1>заголовок</h1> : <h2>заголовок</h2>
-}
-
-type smallestPropsType = {
-    collapsed: boolean
-}
-
-function SmallestAccordion(props: smallestPropsType) {
-    if (props.collapsed) {
-        return <ul>
+export const List=()=> {
+    return (
+        <div>
             <li>1</li>
             <li>2</li>
             <li>3</li>
-        </ul>
-    } else {
-        return <div>Hidden list</div>
+        </div>
+    )
+}
+
+export const Accordion: FC<AccordionPropsType> = (
+    {
+        collapsed,
+        setCollapsedHandler
+    }) => {
+    const OnClickHandler = () => {
+        setCollapsedHandler()
     }
+    return <div>
+       <h1 onClick={OnClickHandler}>заголовок</h1>
+        {collapsed ? <List /> : "Hidden List"}
+    </div>
 }
