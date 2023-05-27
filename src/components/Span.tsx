@@ -1,19 +1,26 @@
 import React from "react";
+import './Span.css'
 
 export type PropsType = {
-    selected: boolean
-    setSelected: (value: boolean) => void
+    ratingValue: number
+    setRatingValue: (value: number) => void
 }
 
 export function Span(props: PropsType) {
-    const onClickHandler = () => {
-        props.setSelected(!props.selected)
+    const setRatingHandler = (newRating: number) => {
+    props.setRatingValue(newRating)
     }
     return (
         <div>
-            <span onClick={onClickHandler}>
-            {props.selected ? <b>star </b> : "star "}
-        </span>
+            {[1,2,3,4,5].map(el=> {
+                return(
+                    <span
+                        key={el}
+                        className={props.ratingValue >= el ? 'active' : ''}
+                        onClick={()=>{setRatingHandler(el)}}
+                    > star </span>
+                )
+            })}
         </div>
     )
 }

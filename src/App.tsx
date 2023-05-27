@@ -24,8 +24,7 @@ function App() {
         setRoundOnOff(!roundOnOff)
     }
 
-    const [selected, setSelected] = useState(false)
-    console.log(selected)
+    const [ratingValue, setRatingValue] = useState(0)
 
     return (
         <div>
@@ -46,8 +45,8 @@ function App() {
             />
             <hr/>
             <Rating
-                setSelected={setSelected}
-                selected={selected}
+                setRatingValue={setRatingValue}
+                ratingValue={ratingValue}
             />
         </div>
     );

@@ -3,19 +3,18 @@ import './Rating.css'
 import {Span} from "./Span";
 
 export type RatingPropsType = {
-    selected: boolean
-    setSelected: (value: boolean)=>void
+    ratingValue: number
+    setRatingValue: (value: number)=>void
 }
 
 export function Rating(props: RatingPropsType) {
 
     return (
         <div>
-            <Span selected={props.selected} setSelected={props.setSelected}/>
-            <Span selected={props.selected} setSelected={props.setSelected}/>
-            <Span selected={props.selected} setSelected={props.setSelected}/>
-            <Span selected={props.selected} setSelected={props.setSelected}/>
-            <Span selected={props.selected} setSelected={props.setSelected}/>
+            <Span
+                ratingValue={props.ratingValue}
+                setRatingValue={props.setRatingValue}
+            />
         </div>
     )
 }
