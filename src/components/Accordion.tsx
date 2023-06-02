@@ -1,29 +1,29 @@
 import React, {FC} from "react";
+import {List} from "./List";
 
 export type AccordionPropsType = {
     collapsed: boolean
     setCollapsedHandler:()=> void
 }
-export const List=()=> {
-    return (
-        <div>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-        </div>
-    )
-}
 
 export const Accordion: FC<AccordionPropsType> = (
     {
         collapsed,
-        setCollapsedHandler
+        setCollapsedHandler,
     }) => {
+    const items = [
+        {title:'Dimych', value: 1},
+        {title:'Misha', value: 2},
+        {title:'Artem', value: 3},
+        {title:'valera', value: 4},]
+
     const OnClickHandler = () => {
         setCollapsedHandler()
     }
+
     return <div>
        <h1 onClick={OnClickHandler}>заголовок</h1>
-        {collapsed ? <List /> : "Hidden List"}
+        {collapsed ? <List
+            items={items} /> : "Hidden List"}
     </div>
 }
