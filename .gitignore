@@ -22,5 +22,11 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea
-.storybook
-/storybook-static
+
+# Ignore Storybook build output
+.storybook-static/
+public/storybook/
+
+# Ignore Storybook environment variables
+.env.*.local
+.env.*.production
