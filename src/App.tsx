@@ -3,8 +3,22 @@ import './App.css';
 import {Rating} from "./components/Rating";
 import {Accordion} from "./components/Accordion";
 import {OnOff} from "./components/OnOff";
+import {HandmadeSelector} from "./components/HandmadeSelector";
+import {v1} from "uuid";
+
+export type SelectorItemTypes = {
+    id: string
+    title: string
+    value: number
+}
 
 function App() {
+
+    const SelectorItems: SelectorItemTypes[]= [
+        {id: v1(), title: "Moscow", value: 0},
+        {id: v1(), title: "Minsk", value: 1},
+        {id: v1(), title: "Kiev" , value: 2},
+    ]
 
     const [collapsedValue, setCollapsedValue] = useState<boolean>(false)
     const [collapsedSecondValue, setCollapsedSecondValue] = useState<boolean>(false)
@@ -48,6 +62,9 @@ function App() {
                 setRatingValue={setRatingValue}
                 ratingValue={ratingValue}
             />
+            <hr/>
+            <HandmadeSelector option={SelectorItems}/>
+            <hr/>
         </div>
     );
 }
