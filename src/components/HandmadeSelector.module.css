@@ -7,6 +7,11 @@
     z-index: 1;
     border: 2px solid green;
 }
+
+.selected{
+    cursor: pointer;
+    background-color: greenyellow;
+}
 .select {
     cursor: pointer;
 }

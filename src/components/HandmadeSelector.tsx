@@ -1,89 +1,73 @@
-import React, {useEffect, useState, KeyboardEvent} from 'react';
-import {SelectorItemTypes} from "../App";
+import React, {useState, KeyboardEvent, useEffect} from 'react';
 import s from './HandmadeSelector.module.css'
+import {SelectorItemTypes} from "../App";
 
 export type HandmadeSelectorType = {
-    option: SelectorItemTypes[]
+    items: SelectorItemTypes[]
+    value: any
+    setSelectValue: (value: string) => void
 }
 
 export const HandmadeSelector = (props: HandmadeSelectorType) => {
 
     const [collapseSelector, setCollapseSelector] = useState(false)
-    const [selectedCity, setSelectedCity] = useState(props.option[0].title)
-    const [activeOption, setActiveOption] = useState<number>(0)
-
-    const onClickHandler = () => {
-        setCollapseSelector(!collapseSelector)
-    }
-
-    const onOptionClick =(value: number, title: string)=>{
-        setActiveOption(value)
-        setSelectedCity(title)
-        setCollapseSelector(!collapseSelector)
-    }
-
-    const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-        if(!collapseSelector) {
-            return
-        }
-        switch (e.key) {
-            case "ArrowUp":
-                setActiveOption((prev) => (prev === 0 ? props.option.length - 1 : prev - 1));
-                break;
-            case "ArrowDown":
-                setActiveOption((prev) => (prev === props.option.length - 1 ? 0 : prev + 1));
-                break;
-            case "Enter":
-                e.preventDefault()
-                onOptionClick(activeOption, selectedCity)
-                break;
-            case "Escape":
-                setCollapseSelector(false);
-                break;
-            default:
-                break;
-        }
-    }
+    const [hoveredElement, setHoveredElement] = useState(props.value)
 
     useEffect(() => {
-        if (collapseSelector) {
-            document.addEventListener("keydown", handleKeyDown);
-        } else {
-            document.removeEventListener("keydown", handleKeyDown);
+        setHoveredElement(props.value)
+    }, [props.value])
+
+    const onTitleClickHandler = () => {
+        setCollapseSelector(!collapseSelector)
+    }
+    const onItemClickHandler = (value: string) => {
+        props.setSelectValue(value)
+        setCollapseSelector(!collapseSelector)
+    }
+    const onKeyUpHandler = (e: KeyboardEvent<HTMLHeadingElement>) => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            for (let i = 0; i < props.items.length; i++) {
+                if (props.items[i].value === hoveredElement) {
+                    const nextElement = e.key === 'ArrowDown' ? props.items[i + 1] : props.items[i - 1]
+                    if (nextElement) {
+                        props.setSelectValue(nextElement.value)
+                        return
+                    }
+                }
+            }
+            if (!selectedCity) {
+                props.setSelectValue(props.items[0].value)
+            }
         }
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown);
-        };
-    }, [collapseSelector]);
-
-
-    const mappedItems = props.option.map((option, index) => {
-        const onOptionClickHandler =(title: string)=> {
-            setSelectedCity(title)
-            onOptionClick(index, title)
+        if (e.key === 'Escape' || e.key === 'Enter') {
+            setCollapseSelector(!collapseSelector)
         }
-        const onMouseEnterHandler = (value: number) => {
-            setActiveOption(value)
-        }
+    }
 
-        return (<div
-                key={option.value}
-                onMouseEnter={()=>onMouseEnterHandler(option.value)}
-                className={s.option + ' ' +  (activeOption === index ? 'active' : '')}
-                onClick={()=>onOptionClickHandler(option.title)}
+    const selectedCity = props.items.find(el => el.value === props.value)
+    const hoveredItem = props.items.find(el => el.value === hoveredElement)
+
+    const mappedItems = props.items.map((el => {
+
+        return (
+            <div key={el.id}
+                 onMouseEnter={() => setHoveredElement(el.value)}
+                 className={s.option + ' ' + (hoveredItem === el ? s.selected : '')}
+                 onClick={() => onItemClickHandler(el.value)}
             >
-                {option.title}
+                {el.title}
             </div>
         )
-    })
+    }))
 
     return (
         <div>
-            <div onClick={onClickHandler}
-                 className={s.select}>
-                {selectedCity}
-            </div>
+            <h3 onClick={onTitleClickHandler}
+                tabIndex={0}
+                onKeyUp={onKeyUpHandler}
+                className={s.select}>
+                {selectedCity && selectedCity.title}
+            </h3>
             {collapseSelector &&
                 <div className={s.options}>
                     {mappedItems}
