@@ -1,32 +1,48 @@
-import React, {useState} from 'react';
+import React, {useReducer, useState} from 'react';
 import './App.css';
 import {Rating} from "./components/Rating";
 import {Accordion} from "./components/Accordion";
 import {OnOff} from "./components/OnOff";
 import {HandmadeSelector} from "./components/HandmadeSelector";
-import {v1} from "uuid";
+import {v1} from "uuid"
 
 export type SelectorItemTypes = {
     id: string
     title: string
     value: string
 }
+export type ActionType = {
+    type: string
+}
+export type StateType = {
+    collapsed: boolean
+}
 
-function App() {
+export const reducer = (state: StateType, action: ActionType) => {
+    switch (action.type){
+        case "SET-COLLAPSED" :
+            return {...state, collapsed: !state.collapsed}
+        default:
+            return state
+    }
+}
+
+export function App() {
 
     const [collapsedValue, setCollapsedValue] = useState<boolean>(false)
-    const [collapsedSecondValue, setCollapsedSecondValue] = useState<boolean>(false)
+
     const [selectValue, setSelectValue] = useState('2')
+    const [collapsedSecondValue, dispatch] = useReducer(reducer, {collapsed: false})
+    const [ratingValue, setRatingValue] = useState(0)
+
 
     const setCollapsedHandler = () => {
         setCollapsedValue(!collapsedValue)
     }
-    const setCollapsedSecondHandler = () => {
-        setCollapsedSecondValue(!collapsedSecondValue)
-    }
 
     const [squareOnOff, setSquareOnOff] = useState(false)
     const [roundOnOff, setRoundOnOff] = useState(false)
+
     const setSquareChecker = () => {
         setSquareOnOff(!squareOnOff)
     }
@@ -34,7 +50,6 @@ function App() {
         setRoundOnOff(!roundOnOff)
     }
 
-    const [ratingValue, setRatingValue] = useState(0)
 
     return (
         <div>
@@ -43,8 +58,8 @@ function App() {
                 setCollapsedHandler={setCollapsedHandler}
             />
             <Accordion
-                collapsed={collapsedSecondValue}
-                setCollapsedHandler={setCollapsedSecondHandler}
+                collapsed={collapsedSecondValue.collapsed}
+                setCollapsedHandler={()=>{dispatch({type: 'SET-COLLAPSED'})}}
             />
             <hr/>
             <OnOff
@@ -71,5 +86,3 @@ function App() {
         </div>
     );
 }
-
-export default App;

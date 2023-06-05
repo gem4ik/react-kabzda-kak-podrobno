@@ -1,8 +1,9 @@
 import React, {FC} from "react";
 import {List} from "./List";
+import {StateType} from "../App";
 
 export type AccordionPropsType = {
-    collapsed: boolean
+    collapsed: StateType | boolean
     setCollapsedHandler:()=> void
 }
 
