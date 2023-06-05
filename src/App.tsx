@@ -50,31 +50,34 @@ export function App() {
         setRoundOnOff(!roundOnOff)
     }
 
-
+    const Accordion1 = React.memo(Accordion)
+    const OnOff1 = React.memo(OnOff)
+    const Rating1 = React.memo(Rating)
+    const HandmadeSelector1 = React.memo(HandmadeSelector)
     return (
         <div>
-            <Accordion
+            <Accordion1
                 collapsed={collapsedValue}
                 setCollapsedHandler={setCollapsedHandler}
             />
-            <Accordion
+            <Accordion1
                 collapsed={collapsedSecondValue.collapsed}
                 setCollapsedHandler={()=>{dispatch({type: 'SET-COLLAPSED'})}}
             />
             <hr/>
-            <OnOff
+            <OnOff1
                 squareOnOff={squareOnOff}
                 roundOnOff={roundOnOff}
                 setSquareChecker={setSquareChecker}
                 setRoundChecker={setRoundChecker}
             />
             <hr/>
-            <Rating
+            <Rating1
                 setRatingValue={setRatingValue}
                 ratingValue={ratingValue}
             />
             <hr/>
-            <HandmadeSelector value={selectValue}
+            <HandmadeSelector1 value={selectValue}
                               items={[
                                   {id: v1(), title: "Moscow", value: '1'},
                                   {id: v1(), title: "Minsk", value: '2'},
