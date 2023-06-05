@@ -5,6 +5,8 @@ import {Accordion} from "./components/Accordion";
 import {OnOff} from "./components/OnOff";
 import {HandmadeSelector} from "./components/HandmadeSelector";
 import {v1} from "uuid"
+import {MemoTest} from "./components/MemoTest";
+import {MemoCounter} from "./components/MemoCounter";
 
 export type SelectorItemTypes = {
     id: string
@@ -56,6 +58,10 @@ export function App() {
     const HandmadeSelector1 = React.memo(HandmadeSelector)
     return (
         <div>
+            <MemoCounter/>
+            <hr/>
+            <MemoTest/>
+            <hr/>
             <Accordion1
                 collapsed={collapsedValue}
                 setCollapsedHandler={setCollapsedHandler}
