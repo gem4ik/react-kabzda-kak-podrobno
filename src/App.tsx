@@ -7,6 +7,8 @@ import {HandmadeSelector} from "./components/HandmadeSelector";
 import {v1} from "uuid"
 import {MemoTest} from "./components/MemoTest";
 import {MemoCounter} from "./components/MemoCounter";
+import {UseEffect} from "./components/UseEffect";
+import {SetTimeoutExample} from "./components/SetTimeoutExample";
 
 export type SelectorItemTypes = {
     id: string
@@ -58,39 +60,43 @@ export function App() {
     const HandmadeSelector1 = React.memo(HandmadeSelector)
     return (
         <div>
-            <MemoCounter/>
+            {/*<MemoCounter/>*/}
+            {/*<hr/>*/}
+            {/*<MemoTest/>*/}
+            {/*<hr/>*/}
+            {/*<Accordion1*/}
+            {/*    collapsed={collapsedValue}*/}
+            {/*    setCollapsedHandler={setCollapsedHandler}*/}
+            {/*/>*/}
+            {/*<Accordion1*/}
+            {/*    collapsed={collapsedSecondValue.collapsed}*/}
+            {/*    setCollapsedHandler={()=>{dispatch({type: 'SET-COLLAPSED'})}}*/}
+            {/*/>*/}
+            {/*<hr/>*/}
+            {/*<OnOff1*/}
+            {/*    squareOnOff={squareOnOff}*/}
+            {/*    roundOnOff={roundOnOff}*/}
+            {/*    setSquareChecker={setSquareChecker}*/}
+            {/*    setRoundChecker={setRoundChecker}*/}
+            {/*/>*/}
+            {/*<hr/>*/}
+            {/*<Rating1*/}
+            {/*    setRatingValue={setRatingValue}*/}
+            {/*    ratingValue={ratingValue}*/}
+            {/*/>*/}
+            {/*<hr/>*/}
+            {/*<HandmadeSelector1 value={selectValue}*/}
+            {/*                  items={[*/}
+            {/*                      {id: v1(), title: "Moscow", value: '1'},*/}
+            {/*                      {id: v1(), title: "Minsk", value: '2'},*/}
+            {/*                      {id: v1(), title: "Kiev", value: '3'},*/}
+            {/*                  ]}*/}
+            {/*                  setSelectValue={setSelectValue}*/}
+            {/*/>*/}
             <hr/>
-            <MemoTest/>
+            <UseEffect/>
             <hr/>
-            <Accordion1
-                collapsed={collapsedValue}
-                setCollapsedHandler={setCollapsedHandler}
-            />
-            <Accordion1
-                collapsed={collapsedSecondValue.collapsed}
-                setCollapsedHandler={()=>{dispatch({type: 'SET-COLLAPSED'})}}
-            />
-            <hr/>
-            <OnOff1
-                squareOnOff={squareOnOff}
-                roundOnOff={roundOnOff}
-                setSquareChecker={setSquareChecker}
-                setRoundChecker={setRoundChecker}
-            />
-            <hr/>
-            <Rating1
-                setRatingValue={setRatingValue}
-                ratingValue={ratingValue}
-            />
-            <hr/>
-            <HandmadeSelector1 value={selectValue}
-                              items={[
-                                  {id: v1(), title: "Moscow", value: '1'},
-                                  {id: v1(), title: "Minsk", value: '2'},
-                                  {id: v1(), title: "Kiev", value: '3'},
-                              ]}
-                              setSelectValue={setSelectValue}
-            />
+            <SetTimeoutExample/>
             <hr/>
         </div>
     );
